@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moon Design - Grooming Canino</title>
+    <!-- FontAwesome Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* VARIABLES Y RESET */
+        :root {
+            --bg-main: #0c0d10;
+            --bg-card: #15171e;
+            --pink-accent: #e6007e;
+            --pink-light: #ff2a9d;
+            --text-light: #f8f9fa;
+            --text-muted: #9a9ea9;
+            --border-color: #232733;
+            --font-main: 'Poppins', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+            --bg-white: #ffffff;
+            --text-dark: #0c0d10;
+            --text-white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-main);
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* COMPONENTES REUTILIZABLES */
+        .btn-pink {
+            background-color: var(--pink-accent);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(230, 0, 126, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-pink:hover {
+            background-color: var(--pink-light);
+            transform: translateY(-2px);
+        }
+
+        .section-tag {
+            color: var(--pink-accent);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            text-align: center;
+            font-size: 0.9rem;
+            margin-bottom: 3rem;
+        }
+
+        .star-rating {
+            color: #ffb400;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* HEADER / NAVBAR */
+        header {
+            background-color: var(--bg-white);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #ddd;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            height: 60px;
+        }
+
+        .logo img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 1.8rem;
+        }
+
+        nav a {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #333;
+            transition: color 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--pink-accent);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            padding: 4rem 5%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero-text .sub-header {
+            color: var(--pink-accent);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .hero-text h1 {
+            font-size: 2.8rem;
+            line-height: 1.2;
+            margin: 0.5rem 0 1.5rem;
+        }
+
+        .hero-text h1 span {
+            font-family: var(--font-serif);
+            font-style: italic;
+            color: var(--pink-accent);
+            font-weight: 400;
+        }
+
+        .hero-text p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            max-width: 480px;
+        }
+
+        .hero-badge {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hero-badge i { color: var(--pink-accent); }
+
+        .hero-img {
+            width: 100%;
+            height: 420px;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid var(--border-color);
+        }
+
+        /* BARRA DE BENEFICIOS */
+        .features-bar {
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            border-y: 1px solid #ddd;
+            padding: 2rem 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            border-radius: 12px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .feature-item i {
+            font-size: 1.5rem;
+            color: var(--pink-accent);
+            background: rgba(230, 0, 126, 0.1);
+            padding: 0.8rem;
+            border-radius: 50%;
+        }
+
+        .feature-item h4 { font-size: 0.9rem; margin-bottom: 0.2rem; color: var(--text-dark); }
+        .feature-item p { font-size: 0.78rem; color: #555; }
+
+        /* SERVICIOS */
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 5% 5rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .service-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.8rem;
+            text-align: left;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover { transform: translateY(-5px); }
+
+        .service-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .service-icon {
+            width: 32px;
+            height: 32px;
+            background-color: var(--pink-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 110px;
+            left: 1.2rem;
+            border: 2px solid var(--bg-card);
+            font-size: 0.8rem;
+            color: var(--text-white);
+        }
+
+        .service-card h3 { font-size: 0.9rem; margin: 1.2rem 0 0.4rem; }
+        .service-card p { font-size: 0.75rem; color: var(--text-muted); line-height: 1.4; }
+
+        /* POR QUE ELEGIRNOS */
+        .why-us {
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            padding: 4rem 5%;
+            border-y: 1px solid #ddd;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .why-card i {
+            font-size: 2rem;
+            color: var(--pink-accent);
+            margin-bottom: 1rem;
+        }
+
+        .why-card h3 { font-size: 0.95rem; margin-bottom: 0.5rem; color: var(--text-dark); }
+        .why-card p { font-size: 0.8rem; color: #555; }
+
+        /* PROCESO */
+        .process-section {
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            padding: 5rem 5%;
+            max-width: 100%;
+        }
+
+        .process-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            text-align: center;
+        }
+
+        .process-step .step-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #f9f9f9;
+            border: 1px solid var(--pink-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: var(--pink-accent);
+            font-size: 1.3rem;
+        }
+
+        .process-step h3 { font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--text-dark); }
+        .process-step p { font-size: 0.78rem; color: #555; }
+
+        /* TESTIMONIOS */
+        .testimonials-section {
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            padding: 4rem 5%;
+            max-width: 100%;
+        }
+
+        .testimonials-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .testimonial-card {
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            padding: 1.2rem;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .testimonial-card p { font-size: 0.78rem; color: #555; font-style: italic; margin-bottom: 1rem; }
+        .testimonial-user { display: flex; align-items: center; gap: 0.8rem; }
+        .testimonial-user img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+        .testimonial-user h4 { font-size: 0.8rem; color: var(--text-dark); }
+
+        /* CTA BANNER */
+        .cta-banner {
+            background: linear-gradient(135deg, #e6007e 0%, #880e4f 100%);
+            margin: 3rem 5%;
+            border-radius: 16px;
+            padding: 3rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--text-white);
+        }
+
+        .cta-banner h2 { font-size: 1.8rem; font-weight: 800; color: var(--text-white); }
+        .cta-banner p { font-size: 0.9rem; opacity: 0.9; color: var(--text-white); }
+
+        .btn-white {
+            background-color: white;
+            color: var(--pink-accent);
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-white:hover { transform: scale(1.03); }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            border-top: 1px solid #ddd;
+            padding: 4rem 5% 1.5rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+        }
+
+        .footer-col h4 { font-size: 0.85rem; margin-bottom: 1.2rem; letter-spacing: 1px; color: var(--text-dark); }
+        .footer-col p, .footer-col a { font-size: 0.8rem; color: #555; margin-bottom: 0.6rem; display: block; }
+        .footer-col a:hover { color: var(--pink-accent); }
+
+        .mini-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.4rem;
+        }
+
+        .mini-gallery img { width: 100%; height: 50px; border-radius: 4px; object-fit: cover; }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #ddd;
+            padding-top: 1.5rem;
+            font-size: 0.75rem;
+            color: #777;
+        }
+
+        /* MODAL DE RESERVAS DE CITA */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .booking-modal {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 520px;
+            padding: 2rem;
+            position: relative;
+            color: var(--text-light);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover { color: var(--pink-accent); }
+
+        .booking-modal h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+            color: var(--text-white);
+        }
+
+        .booking-modal p.subtitle {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: var(--text-light);
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: #0c0d10;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--pink-accent);
+        }
+
+        /* RETÍCULA DE HORARIOS DISPONIBLES */
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.6rem;
+            margin-top: 0.5rem;
+        }
+
+        .slot-btn {
+            background-color: #0c0d10;
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+            padding: 0.6rem 0.4rem;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .slot-btn:hover:not(.booked) {
+            border-color: var(--pink-accent);
+            color: var(--pink-accent);
+        }
+
+        .slot-btn.selected {
+            background-color: var(--pink-accent);
+            border-color: var(--pink-accent);
+            color: white;
+            font-weight: 600;
+        }
+
+        .slot-btn.booked {
+            background-color: #1a1a1a;
+            border-color: #222;
+            color: #555;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+
+        .submit-booking {
+            width: 100%;
+            margin-top: 1.5rem;
+            justify-content: center;
+            padding: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            nav { display: none; }
+            .hero { grid-template-columns: 1fr; text-align: center; }
+            .hero-text p { margin: 0 auto 2rem; }
+            .hero-badge { justify-content: center; }
+            .cta-banner { text-align: center; justify-content: center; }
+            .logo { height: 50px; }
+            .time-slots { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Moon Design Grooming Canino Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#inicio" class="active">INICIO</a></li>
+                <li><a href="#servicios">SERVICIOS</a></li>
+                <li><a href="#nosotros">NOSOTROS</a></li>
+                <li><a href="#proceso">PROCESO</a></li>
+                <li><a href="#resenas">RESEÑAS</a></li>
+                <li><a href="#galeria">GALERÍA</a></li>
+                <li><a href="#contacto">CONTACTO</a></li>
+            </ul>
+        </nav>
+        <button class="btn-pink open-booking-modal">
+            <i class="fa-regular fa-calendar-check"></i> AGENDA SU CITA
+        </button>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="inicio" class="hero">
+        <div class="hero-text">
+            <span class="sub-header">NO ES SOLO ESTÉTICA,</span>
+            <h1>Es cuidado, confianza y una <span>experiencia Moon</span></h1>
+            <p>En Moon Design consentimos a tu mejor amigo con servicios de grooming profesional, productos premium y mucho amor.</p>
+            <button class="btn-pink open-booking-modal">
+                <i class="fa-regular fa-calendar-check"></i> AGENDA SU CITA
+            </button>
+            <div class="hero-badge">
+                <i class="fa-solid fa-circle-check"></i> Atención personalizada • Un perro por horario
+            </div>
+        </div>
+        <div>
+            <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&q=80&w=800" alt="Grooming Canino" class="hero-img">
+        </div>
+    </section>
+
+    <!-- BARRA DE BENEFICIOS -->
+    <div class="features-bar">
+        <div class="feature-item">
+            <i class="fa-solid fa-heart"></i>
+            <div>
+                <h4>Bienestar primero</h4>
+                <p>Cada servicio pensado para su salud y comodidad.</p>
+            </div>
+        </div>
+        <div class="feature-item">
+            <i class="fa-solid fa-shield-halved"></i>
+            <div>
+                <h4>Productos premium</h4>
+                <p>Alta calidad, seguros y especializados.</p>
+            </div>
+        </div>
+        <div class="feature-item">
+            <i class="fa-solid fa-award"></i>
+            <div>
+                <h4>Groomers expertos</h4>
+                <p>Capacitados y con experiencia en razas.</p>
+            </div>
+        </div>
+        <div class="feature-item">
+            <i class="fa-solid fa-house-chimney-medical"></i>
+            <div>
+                <h4>Ambiente seguro</h4>
+                <p>Limpio, cómodo y lleno de paciencia.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SERVICIOS -->
+    <section id="servicios" class="services-container">
+        <span class="section-tag">SERVICIOS DE GROOMING</span>
+        <h2 class="section-title">Todo lo que tu perro necesita</h2>
+        <p class="section-desc">Ofrecemos servicios completos para que tu perro luzca increíble y se sienta feliz.</p>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1535294435445-d7249524ef2e?auto=format&fit=crop&q=80&w=300" alt="Baño Premium">
+                <div class="service-icon"><i class="fa-solid fa-bath"></i></div>
+                <h3>Baño Premium</h3>
+                <p>Shampoo especializado según piel y pelo. Incluye limpieza de oídos y glándulas.</p>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1591946614720-90a587da4a36?auto=format&fit=crop&q=80&w=300" alt="Corte y Estilizado">
+                <div class="service-icon"><i class="fa-solid fa-scissors"></i></div>
+                <h3>Corte y Estilizado</h3>
+                <p>Cortes personalizados según la raza o estilo deseado. Resaltamos su belleza.</p>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1623387641168-d9803ddd3f35?auto=format&fit=crop&q=80&w=300" alt="Cepillado Deslanado">
+                <div class="service-icon"><i class="fa-solid fa-paw"></i></div>
+                <h3>Cepillado Deslanado</h3>
+                <p>Eliminamos pelo muerto, deshatamos nudos y mantenemos el pelaje brillante.</p>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&q=80&w=300" alt="Corte de Uñas">
+                <div class="service-icon"><i class="fa-solid fa-hand"></i></div>
+                <h3>Corte Uñas y Pad</h3>
+                <p>Corte seguro y limpieza de almohadillas para confort y seguridad al caminar.</p>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=300" alt="Limpieza Dental">
+                <div class="service-icon"><i class="fa-solid fa-tooth"></i></div>
+                <h3>Limpieza Dental</h3>
+                <p>Para una boca sana y aliento fresco. Previene sarro, placa y molestias.</p>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&q=80&w=300" alt="Perfumería Canina">
+                <div class="service-icon"><i class="fa-solid fa-spray-can"></i></div>
+                <h3>Perfumería Canina</h3>
+                <p>Fragancias suaves y duraderas especiales que respetan la piel sensible.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- POR QUE ELEGIRNOS -->
+    <section id="nosotros" class="why-us">
+        <span class="section-tag">¿POR QUÉ ELEGIR MOON DESIGN?</span>
+        <h2 class="section-title" style="margin-bottom: 3rem; color: var(--text-dark);">Cuidamos cada detalle</h2>
+        <div class="why-grid">
+            <div class="why-card">
+                <i class="fa-solid fa-heart-circle-check"></i>
+                <h3>Amamos lo que hacemos</h3>
+                <p>Cada perro es tratado con paciencia, amor y respeto absoluto.</p>
+            </div>
+            <div class="why-card">
+                <i class="fa-solid fa-clock"></i>
+                <h3>Atención 100% personalizada</h3>
+                <p>Un perro por horario para ofrecerle una experiencia sin estrés.</p>
+            </div>
+            <div class="why-card">
+                <i class="fa-solid fa-shield-dog"></i>
+                <h3>Seguridad y confianza</h3>
+                <p>Instalaciones desinfectadas y seguras adaptadas para su confort.</p>
+            </div>
+            <div class="why-card">
+                <i class="fa-solid fa-sparkles"></i>
+                <h3>Resultados que se notan</h3>
+                <p>Pelaje limpio, brillante y estilo que resalta su elegancia natural.</p>
+            </div>
+            <div class="why-card">
+                <i class="fa-solid fa-camera"></i>
+                <h3>Enviamos fotos</h3>
+                <p>Te mandamos fotos de tu consentido durante y después del servicio.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESO -->
+    <section id="proceso" class="process-section">
+        <div class="process-inner">
+            <span class="section-tag">NUESTRO PROCESO DE ATENCIÓN</span>
+            <h2 class="section-title" style="color: var(--text-dark);">Paso a paso para su consentimiento</h2>
+            <p class="section-desc" style="color: #555;">Transparencia y tranquilidad desde el primer minuto.</p>
+
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="step-icon"><i class="fa-regular fa-calendar-days"></i></div>
+                    <h3>1. Agenda su cita</h3>
+                    <p>Elige el día y hora que mejor se acomode a tus tiempos.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-icon"><i class="fa-solid fa-dog"></i></div>
+                    <h3>2. Recepción</h3>
+                    <p>Conocemos a tu perrito y evaluamos sus necesidades físicas.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-icon"><i class="fa-solid fa-soap"></i></div>
+                    <h3>3. Servicio Grooming</h3>
+                    <p>Realizamos el trabajo con productos premium y gran cuidado.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+                    <h3>4. Reporte de servicio</h3>
+                    <p>Te enviamos fotos y reporte de cómo fue su experiencia.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-icon"><i class="fa-solid fa-face-smile-beam"></i></div>
+                    <h3>5. Entrega feliz</h3>
+                    <p>Tu perro vuelve limpio, feliz y oliendo delicioso.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section id="resenas" class="testimonials-section">
+        <div class="testimonials-inner">
+            <span class="section-tag">LO QUE DICEN NUESTROS CLIENTES</span>
+            <h2 class="section-title" style="margin-bottom: 3rem; color: var(--text-dark);">Familias felices Moon</h2>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div>
+                        <div class="star-rating">★★★★★</div>
+                        <p>"Moon Design es lo mejor que le ha pasado a mi Pomerania, siempre lo dejan hermoso y feliz. ¡Super recomendados!"</p>
+                    </div>
+                    <div class="testimonial-user">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=100" alt="Andrea R.">
+                        <div><h4>Andrea R.</h4></div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div>
+                        <div class="star-rating">★★★★★</div>
+                        <p>"El trato es increíble, muy profesionales y amorosos con los perros. Mi maltés siempre sale impecable."</p>
+                    </div>
+                    <div class="testimonial-user">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100" alt="Carlos M.">
+                        <div><h4>Carlos M.</h4></div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div>
+                        <div class="star-rating">★★★★★</div>
+                        <p>"Me encanta que atiendan solo un perro por horario, eso da mucha tranquilidad. Excelente servicio."</p>
+                    </div>
+                    <div class="testimonial-user">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100" alt="Mariana L.">
+                        <div><h4>Mariana L.</h4></div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div>
+                        <div class="star-rating">★★★★★</div>
+                        <p>"Mi Golden siempre regresa feliz y oliendo delicioso. Se nota que aman lo que hacen."</p>
+                    </div>
+                    <div class="testimonial-user">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=100" alt="Javier P.">
+                        <div><h4>Javier P.</h4></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <div class="cta-banner">
+        <div>
+            <p style="text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Tu perro merece lo mejor</p>
+            <h2>AGENDA SU CITA HOY MISMO</h2>
+            <p><i class="fa-solid fa-check"></i> Un perro por horario para una experiencia única.</p>
+        </div>
+        <div>
+            <button class="btn-white open-booking-modal">
+                <i class="fa-regular fa-calendar-check"></i> AGENDA SU CITA AHORA
+            </button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="contacto">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 1rem; height: 50px;">
+                    <img src="logo.png" alt="Moon Design Grooming Canino Logo">
+                </div>
+                <p>En Moon Design cuidamos a tu mejor amigo con amor, paciencia y servicios de grooming premium.</p>
+            </div>
+            <div class="footer-col">
+                <h4>CONTACTO</h4>
+                <p><i class="fa-solid fa-phone"></i> 55 1234 5678</p>
+                <p><i class="fa-solid fa-location-dot"></i> Av. Grooming 123, CDMX</p>
+                <p><i class="fa-solid fa-envelope"></i> moondesign@grooming.com</p>
+            </div>
+            <div class="footer-col">
+                <h4>HORARIOS</h4>
+                <p><strong>Lunes a Viernes:</strong><br>9:00 am - 6:00 pm</p>
+                <p><strong>Sábado:</strong><br>9:00 am - 3:00 pm</p>
+                <p><strong>Domingo:</strong> Cerrado</p>
+            </div>
+            <div class="footer-col">
+                <h4>SÍGUENOS</h4>
+                <a href="#"><i class="fa-brands fa-instagram"></i> Instagram</a>
+                <a href="#"><i class="fa-brands fa-facebook"></i> Facebook</a>
+                <a href="#"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+                <a href="#"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+            </div>
+            <div class="footer-col" id="galeria">
+                <h4>GALERÍA</h4>
+                <div class="mini-gallery">
+                    <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&q=80&w=150" alt="Galería 1">
+                    <img src="https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?auto=format&fit=crop&q=80&w=150" alt="Galería 2">
+                    <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&q=80&w=150" alt="Galería 3">
+                    <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=150" alt="Galería 4">
+                    <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80&w=150" alt="Galería 5">
+                    <img src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&q=80&w=150" alt="Galería 6">
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 Moon Design Grooming Canino. Todos los derechos reservados. ❤️</p>
+        </div>
+    </footer>
+
+    <!-- MODAL DE CALENDARIO Y AGENDAMIENTO -->
+    <div class="modal-overlay" id="bookingModal">
+        <div class="booking-modal">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <h3>Agenda tu Cita Moon</h3>
+            <p class="subtitle">Atención personalizada • Un perro por horario</p>
+
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label for="petName">Nombre de tu mascota</label>
+                    <input type="text" id="petName" placeholder="Ej. Lucca" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="serviceSelect">Servicio deseado</label>
+                    <select id="serviceSelect" required>
+                        <option value="Baño Premium">Baño Premium</option>
+                        <option value="Corte y Estilizado">Corte y Estilizado</option>
+                        <option value="Cepillado Deslanado">Cepillado Deslanado</option>
+                        <option value="Corte Uñas y Pad">Corte Uñas y Pad</option>
+                        <option value="Limpieza Dental">Limpieza Dental</option>
+                        <option value="Perfumería Canina">Perfumería Canina</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="bookingDate">Selecciona una fecha</label>
+                    <input type="date" id="bookingDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Horarios disponibles para la fecha</label>
+                    <div class="time-slots" id="timeSlotsContainer">
+                        <!-- Generado dinámicamente con JavaScript -->
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-pink submit-booking">
+                    <i class="fa-brands fa-whatsapp"></i> CONFIRMAR CITA POR WHATSAPP
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT PARA CONTROL DE FECHAS Y RESERVAS -->
+    <script>
+        const defaultSlots = [
+            '09:00 AM', '10:30 AM', '12:00 PM', 
+            '01:30 PM', '03:00 PM', '04:30 PM'
+        ];
+
+        // Objeto simulado para persistir citas agendadas por fecha
+        const bookingsDB = {};
+
+        const modal = document.getElementById('bookingModal');
+        const openBtns = document.querySelectorAll('.open-booking-modal');
+        const closeBtn = document.getElementById('closeModal');
+        const dateInput = document.getElementById('bookingDate');
+        const slotsContainer = document.getElementById('timeSlotsContainer');
+        const bookingForm = document.getElementById('bookingForm');
+        let selectedTimeSlot = null;
+
+        // Establecer la fecha mínima en el selector de fecha (día actual)
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.min = today;
+        dateInput.value = today;
+
+        // Abrir / Cerrar Modal
+        openBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                modal.classList.add('active');
+                renderTimeSlots(dateInput.value);
+            });
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.classList.remove('active');
+        });
+
+        // Renderizar horarios al cambiar la fecha
+        dateInput.addEventListener('change', (e) => {
+            renderTimeSlots(e.target.value);
+        });
+
+        function renderTimeSlots(date) {
+            slotsContainer.innerHTML = '';
+            selectedTimeSlot = null;
+
+            const bookedSlots = bookingsDB[date] || [];
+
+            defaultSlots.forEach(slot => {
+                const isBooked = bookedSlots.includes(slot);
+                const btn = document.createElement('div');
+                btn.className = `slot-btn ${isBooked ? 'booked' : ''}`;
+                btn.innerText = isBooked ? `${slot} (Ocupado)` : slot;
+
+                if (!isBooked) {
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
+                        btn.classList.add('selected');
+                        selectedTimeSlot = slot;
+                    });
+                }
+
+                slotsContainer.appendChild(btn);
+            });
+        }
+
+        // Enviar formulario y apartar lugar
+        bookingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            if (!selectedTimeSlot) {
+                alert('Por favor selecciona un horario disponible para continuar.');
+                return;
+            }
+
+            const petName = document.getElementById('petName').value;
+            const service = document.getElementById('serviceSelect').value;
+            const selectedDate = dateInput.value;
+
+            // Guardar en la base de datos local simulada
+            if (!bookingsDB[selectedDate]) {
+                bookingsDB[selectedDate] = [];
+            }
+            bookingsDB[selectedDate].push(selectedTimeSlot);
+
+            // Generar mensaje directo de WhatsApp
+            const phone = "525512345678"; // Reemplaza con tu número de WhatsApp
+            const message = encodeURIComponent(
+                `¡Hola Moon Design! 🐾 Me gustaría agendar una cita:\n\n` +
+                `🐶 Mascota: ${petName}\n` +
+                `✂️ Servicio: ${service}\n` +
+                `📅 Fecha: ${selectedDate}\n` +
+                `⏰ Horario: ${selectedTimeSlot}`
+            );
+
+            // Abrir WhatsApp con los datos completados
+            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+
+            // Actualizar vista y cerrar modal
+            renderTimeSlots(selectedDate);
+            modal.classList.remove('active');
+            bookingForm.reset();
+            dateInput.value = today;
+        });
+    </script>
+</body>
+</html>
