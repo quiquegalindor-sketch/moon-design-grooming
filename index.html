@@ -591,6 +591,152 @@
             .logo { height: 50px; }
             .time-slots { grid-template-columns: repeat(2, 1fr); }
         }
+/* ===== GALERÍA INTERACTIVA ===== */
+
+.gallery-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.92);
+    z-index: 3000;
+    padding: 30px;
+    overflow-y: auto;
+}
+
+.gallery-modal.active {
+    display: block;
+}
+
+.gallery-modal-content {
+    width: 100%;
+    max-width: 1000px;
+    margin: 50px auto;
+}
+
+/* Mosaico de las 6 fotografías */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.gallery-grid img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.gallery-grid img:hover {
+    transform: scale(1.03);
+}
+
+/* X para cerrar mosaico */
+.gallery-close {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+    z-index: 3001;
+}
+
+/* ===== VISOR DE UNA SOLA FOTOGRAFÍA ===== */
+
+.gallery-viewer {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.96);
+    z-index: 4000;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+.gallery-viewer.active {
+    display: flex;
+}
+
+.gallery-viewer img {
+    max-width: 85%;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+/* X del visor */
+.viewer-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+/* Flechas */
+.gallery-prev,
+.gallery-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.gallery-prev {
+    left: 25px;
+}
+
+.gallery-next {
+    right: 25px;
+}
+
+.gallery-prev:hover,
+.gallery-next:hover {
+    background: var(--pink-accent);
+}
+
+/* Celulares */
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gallery-grid img {
+        height: 160px;
+    }
+
+    .gallery-modal {
+        padding: 15px;
+    }
+
+    .gallery-viewer img {
+        max-width: 80%;
+    }
+
+    .gallery-prev {
+        left: 8px;
+    }
+
+    .gallery-next {
+        right: 8px;
+    }
+}
     </style>
 </head>
 <body>
@@ -610,7 +756,8 @@
                 <li>
     <a href="https://www.facebook.com/profile.php?id=61551040320188&sk=photos" target="_blank" rel="noopener noreferrer">
         GALERÍA
-    </a>
+    <li>
+    <a href="#" class="open-gallery">GALERÍA</a>
 </li>
                 <li><a href="#contacto">CONTACTO</a></li>
             </ul>
@@ -899,6 +1046,29 @@
             <p>© 2024 Moon Design Grooming Canino. Todos los derechos reservados. ❤️</p>
         </div>
     </footer>
+    <div class="gallery-modal" id="galleryModal">
+    <button class="gallery-close" id="galleryClose">&times;</button>
+     <div class="gallery-modal-content">
+        <div class="gallery-grid">
+            <img src="galería1.jpg" alt="Galería Moon Design 1">
+            <img src="galería2.jpg" alt="Galería Moon Design 2">
+            <img src="galería3.jpg" alt="Galería Moon Design 3">
+            <img src="galería4.jpg" alt="Galería Moon Design 4">
+            <img src="galería5.jpg" alt="Galería Moon Design 5">
+            <img src="galería6.jpg" alt="Galería Moon Design 6">
+        </div>
+    </div>
+</div>
+
+<!-- VISOR DE FOTOGRAFÍAS -->
+<div class="gallery-viewer" id="galleryViewer">
+    <button class="viewer-close" id="viewerClose">&times;</button>
+    <button class="gallery-prev" id="galleryPrev">&#10094;</button>
+
+    <img id="viewerImage" src="" alt="Fotografía Moon Design">
+
+    <button class="gallery-next" id="galleryNext">&#10095;</button>
+</div>
 
     <!-- MODAL DE CALENDARIO Y AGENDAMIENTO -->
     <div class="modal-overlay" id="bookingModal">
@@ -1051,6 +1221,160 @@
             bookingForm.reset();
             dateInput.value = today;
         });
+        /* ===== GALERÍA INTERACTIVA MOON DESIGN ===== */
+
+const galleryModal = document.getElementById('galleryModal');
+const galleryViewer = document.getElementById('galleryViewer');
+const galleryClose = document.getElementById('galleryClose');
+const viewerClose = document.getElementById('viewerClose');
+const viewerImage = document.getElementById('viewerImage');
+const galleryPrev = document.getElementById('galleryPrev');
+const galleryNext = document.getElementById('galleryNext');
+
+const galleryImages = [
+    'galería1.jpg',
+    'galería2.jpg',
+    'galería3.jpg',
+    'galería4.jpg',
+    'galería5.jpg',
+    'galería6.jpg'
+];
+
+let currentGalleryImage = 0;
+
+
+/* ABRIR MOSAICO DESDE EL MENÚ SUPERIOR */
+document.querySelectorAll('.open-gallery').forEach(function(button) {
+    button.addEventListener('click', function(event) {
+        event.preventDefault();
+        galleryModal.classList.add('active');
+    });
+});
+
+
+/* ABRIR MOSAICO DESDE GALERÍA DEL FOOTER */
+const footerGalleryTitle = document.querySelector('#galeria h4');
+
+if (footerGalleryTitle) {
+    footerGalleryTitle.style.cursor = 'pointer';
+
+    footerGalleryTitle.addEventListener('click', function() {
+        galleryModal.classList.add('active');
+    });
+}
+
+
+/* TAMBIÉN ABRIR AL DAR CLIC EN LAS MINIATURAS DEL FOOTER */
+const footerMiniGallery = document.querySelector('#galeria .mini-gallery');
+
+if (footerMiniGallery) {
+    footerMiniGallery.style.cursor = 'pointer';
+
+    footerMiniGallery.addEventListener('click', function() {
+        galleryModal.classList.add('active');
+    });
+}
+
+
+/* CERRAR MOSAICO */
+galleryClose.addEventListener('click', function() {
+    galleryModal.classList.remove('active');
+});
+
+
+/* ABRIR FOTO INDIVIDUAL */
+document.querySelectorAll('.gallery-grid img').forEach(function(image, index) {
+
+    image.addEventListener('click', function() {
+
+        currentGalleryImage = index;
+
+        viewerImage.src = galleryImages[currentGalleryImage];
+
+        galleryViewer.classList.add('active');
+
+    });
+
+});
+
+
+/* CERRAR FOTO INDIVIDUAL */
+viewerClose.addEventListener('click', function() {
+    galleryViewer.classList.remove('active');
+});
+
+
+/* FOTO ANTERIOR */
+galleryPrev.addEventListener('click', function() {
+
+    currentGalleryImage--;
+
+    if (currentGalleryImage < 0) {
+        currentGalleryImage = galleryImages.length - 1;
+    }
+
+    viewerImage.src = galleryImages[currentGalleryImage];
+
+});
+
+
+/* FOTO SIGUIENTE */
+galleryNext.addEventListener('click', function() {
+
+    currentGalleryImage++;
+
+    if (currentGalleryImage >= galleryImages.length) {
+        currentGalleryImage = 0;
+    }
+
+    viewerImage.src = galleryImages[currentGalleryImage];
+
+});
+
+
+/* CERRAR MOSAICO HACIENDO CLIC EN EL FONDO */
+galleryModal.addEventListener('click', function(event) {
+
+    if (event.target === galleryModal) {
+        galleryModal.classList.remove('active');
+    }
+
+});
+
+
+/* CERRAR FOTO HACIENDO CLIC EN EL FONDO */
+galleryViewer.addEventListener('click', function(event) {
+
+    if (event.target === galleryViewer) {
+        galleryViewer.classList.remove('active');
+    }
+
+});
+
+
+/* CONTROL CON EL TECLADO */
+document.addEventListener('keydown', function(event) {
+
+    if (event.key === 'Escape') {
+
+        galleryViewer.classList.remove('active');
+        galleryModal.classList.remove('active');
+
+    }
+
+    if (galleryViewer.classList.contains('active')) {
+
+        if (event.key === 'ArrowLeft') {
+            galleryPrev.click();
+        }
+
+        if (event.key === 'ArrowRight') {
+            galleryNext.click();
+        }
+
+    }
+
+});
     </script>
 </body>
 </html>
